@@ -72,12 +72,12 @@ int main()
 	Shader text_shader(vert_shader_text, frag_shader_text);
 	text_shader.use();
  
-	/* glm::vec3 camera_position(0.0f, 0.0f, 3.0f); // -Z is into the screen.
+	glm::vec3 camera_position(0.0f, 0.0f, 3.0f); // -Z is into the screen.
 	glm::vec3 camera_target(0.0f, 0.0f, 0.0f);
 	glm::vec3 camera_up(0.0f, 1.0f, 0.0f);
  
 	glm::mat4 view = glm::lookAt(camera_position, camera_target, camera_up);
-	glm::mat4 projection = glm::perspective(glm::radians(55.0f), (float)window_width / (float)window_height, 0.1f, 100.0f); */
+	glm::mat4 projection = glm::perspective(glm::radians(55.0f), (float)window_width / (float)window_height, 0.1f, 100.0f);
  
 	// (4) Initialise FreeType & Declare Text Objects
 	// -----------------------------------------------------------
@@ -92,9 +92,9 @@ int main()
 		int keep_console_open;
 		std::cin >> keep_console_open;
 	}
-	/* Text text_object1(free_type, window_width, window_height, "1234567890&.-abcdefghijklmnopqrstuvwxyz:_ABCDEFGHIJKLMNOPQRSTUVWXYZ "); // Pass a specific alphabet to be used for this specific text object.
-	text_object1.create_text_message("Using OpenGL and the FreeType library to render", 110, 60, "Text Fonts/cambriaz.ttf", 70, false);
-	text_object1.create_text_message("and animate TrueType fonts.", 110, 180, "Text Fonts/cambriaz.ttf", 70, false); */
+	Text text_object1(free_type, window_width, window_height, "1234567890&.-abcdefghijklmnopqrstuvwxyz:_ABCDEFGHIJKLMNOPQRSTUVWXYZ "); // Pass a specific alphabet to be used for this specific text object.
+	// text_object1.create_text_message("Using OpenGL and the FreeType library to render", 110, 60, "Text Fonts/cambriaz.ttf", 70, false);
+	text_object1.create_text_message("and animate TrueType fonts.", 110, 180, "/home/ryan/Documents/tests/opengl-text/font/arialbi.ttf", 70, false);
  
 	Text text_object2(free_type, window_width, window_height, "01234567890Get Rady.Timr:owns&ClBgfb"); // Declare a new text object, passing in your chosen alphabet.	
 	text_object2.create_text_message("Get Ready... Timer: 000", 150, 100, "/home/ryan/Documents/tests/opengl-text/font/arialbi.ttf", 130, true); // True indicates that the message will be modified.
@@ -107,12 +107,12 @@ int main()
 	int get_ready = 0;
 	bool running = false; 
 	
-	/* unsigned int view_mat_text_loc = glGetUniformLocation(text_shader.ID, "view");
+	unsigned int view_mat_text_loc = glGetUniformLocation(text_shader.ID, "view");
 	unsigned int proj_mat_text_loc = glGetUniformLocation(text_shader.ID, "projection");
 	unsigned int anim_text_loc = glGetUniformLocation(text_shader.ID, "animate");
  
 	glUniformMatrix4fv(view_mat_text_loc, 1, GL_FALSE, glm::value_ptr(view));
-	glUniformMatrix4fv(proj_mat_text_loc, 1, GL_FALSE, glm::value_ptr(projection)); */
+	glUniformMatrix4fv(proj_mat_text_loc, 1, GL_FALSE, glm::value_ptr(projection));
  
 	glUniform1i(glGetUniformLocation(text_shader.ID, "alphabet_texture"), 31);
  
@@ -122,7 +122,7 @@ int main()
  
 	// (5) Enter the Main-Loop
 	// --------------------------------
-	 /* srand((unsigned)time(NULL)); // Initialise random seed.
+	srand((unsigned)time(NULL)); // Initialise random seed.
  
 	float x_spin = 1.0f / (rand() % 10 + 1); // Generate random number between 1 and 10
 	float y_spin = 1.0f / (rand() % 10 + 1);
@@ -132,13 +132,13 @@ int main()
 	float spin_vary = 0.0f;
 	int spin_dir = 1;
  
-	glm::mat4 spinning_mat(1.0f); */
+	glm::mat4 spinning_mat(1.0f);
  
 	while (!glfwWindowShouldClose(window)) // Main-Loop
 	{
 		// (6) Randomise the Model's Spinning Speed & Axis
 		// ------------------------------------------------------------------
-		/* spin_vary += 0.05f * spin_dir;
+		spin_vary += 0.05f * spin_dir;
  
 		if (spin_vary > 6 || spin_vary < 0)
 		{
@@ -149,7 +149,7 @@ int main()
 			z_spin = 1.0f / (rand() % 10 + 1);
 			spin_speed = (float)(rand() % 50 + 1) / 40;			
 		}		
-		spinning_mat = glm::rotate(spinning_mat, glm::radians(spin_speed), glm::normalize(glm::vec3(x_spin, y_spin, z_spin))); */
+		spinning_mat = glm::rotate(spinning_mat, glm::radians(spin_speed), glm::normalize(glm::vec3(x_spin, y_spin, z_spin)));
  
 		// (7) Clear the Screen & Depth Buffer
 		// ----------------------------------------------
@@ -158,10 +158,10 @@ int main()
 		
 		// (8) Draw the Alphabets & Messages
 		// -----------------------------------------------
-		// text_object1.draw_messages();
-		// text_object1.draw_alphabets();
+		text_object1.draw_messages();
+		text_object1.draw_alphabets();
  
-		 /* glUniformMatrix4fv(anim_text_loc, 1, GL_FALSE, glm::value_ptr(spinning_mat)); */
+		glUniformMatrix4fv(anim_text_loc, 1, GL_FALSE, glm::value_ptr(spinning_mat));
  
 		if (!running)
 			++get_ready;
@@ -174,8 +174,7 @@ int main()
 			if (display_counting == 300)
 				display_counting = 0;
  
-			// std::cout << "\n   display_counting: " << display_counting << " ---  display_counting % 10: " << display_counting % 10 << " ---  display_counting / 10 % 10: "
-				// << display_counting / 10 % 10 << " --- display_counting / 100 % 10: " << display_counting / 100 % 10;
+			std::cout << "\n   display_counting: " << display_counting << " ---  display_counting % 10: " << display_counting % 10 << " ---  display_counting / 10 % 10: " << display_counting / 10 % 10 << " --- display_counting / 100 % 10: " << display_counting / 100 % 10;
  
 			unsigned num1 = display_counting / 100 % 10; // Left digit.
 			unsigned num2 = display_counting / 10 % 10;
@@ -202,12 +201,12 @@ int main()
  
 	// (9) Exit the Application
 	// ------------------------------
-	// FT_Done_Face(text_object1.face);
+	FT_Done_Face(text_object1.face);
 	FT_Done_Face(text_object2.face);
 	FT_Done_FreeType(free_type);		
 	glDeleteProgram(text_shader.ID);
  
-	/* glfwDestroyWindow(window) // Call this function to destroy a specific window */	
+	glfwDestroyWindow(window); // Call this function to destroy a specific window */	
 	glfwTerminate(); // Destroys all remaining windows and cursors, restores modified gamma ramps, and frees resources.
  
 	exit(EXIT_SUCCESS); // Function call: exit() is a C/C++ function that performs various tasks to help clean up resources.

@@ -15,10 +15,10 @@ void main(void)
  
 	// Enable this line for 2D window-positioned text
 	// -------------------------------------------------------------
-	gl_Position = vec4(vertex.xy, 0.0, 1.0);
+	// gl_Position = vec4(vertex.xy, 0.0, 1.0);
  
 	// Enable these two lines instead for 3D animated text
 	// --------------------------------------------------------------------
-	// texcoords_anim = vec3(animate * vec4(vertex.xy, 0.0, 1)); // Used simply to animate the colours.
-	// gl_Position = projection * view * animate * vec4(vertex.xy, 0.0, 1.0);
+	texcoords_anim = vec3(animate * vec4(vertex.xy, 0.0, 1)); // Used simply to animate the colours.
+	gl_Position = projection * view * animate * vec4(vertex.xy, 0.0, 1.0);
 }

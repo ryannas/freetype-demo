@@ -32,8 +32,8 @@ void main(void)
  
 	// Enable these three lines instead for 3D animated text
 	// ----------------------------------------------------------------------
-	// fragment_colour = vec4((texcoords_anim * 2) + vec3(0.25, 0.25, 0.25), texture_value);
+	fragment_colour = vec4((texcoords_anim * 2) + vec3(0.25, 0.25, 0.25), texture_value);
  
-	// if (texture_value == 0)
-		//  discard;
+	if (texture_value == 0)
+		discard;
 }
